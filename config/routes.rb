@@ -1,4 +1,6 @@
-RubyRailsSample::Application.routes.draw do
+FlatMate::Application.routes.draw do
+  devise_for :users
+
   resources :messages
 
   resources :shop_items
@@ -6,6 +8,8 @@ RubyRailsSample::Application.routes.draw do
   resources :users
 
   resources :flats
+
+  root :to => "application#index"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
