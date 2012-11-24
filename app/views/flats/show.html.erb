@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Nickname:</b>
+  <%= @flat.nickname %>
+</p>
+
+<p>
+  <b>Postcode:</b>
+  <%= @flat.postcode %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @flat.description %>
+</p>
+
+<p>
+  <b>Geocode lat:</b>
+  <%= @flat.geocode_lat %>
+</p>
+
+<p>
+  <b>Geocode long:</b>
+  <%= @flat.geocode_long %>
+</p>
+
+
+<%= link_to 'Edit', edit_flat_path(@flat) %> |
+<%= link_to 'Back', flats_path %>

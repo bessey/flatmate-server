@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Flat:</b>
+  <%= @shop_item.flat_id %>
+</p>
+
+<p>
+  <b>User want:</b>
+  <%= @shop_item.user_want_id %>
+</p>
+
+<p>
+  <b>User bought:</b>
+  <%= @shop_item.user_bought_id %>
+</p>
+
+<p>
+  <b>Price:</b>
+  <%= @shop_item.price %>
+</p>
+
+<p>
+  <b>Name:</b>
+  <%= @shop_item.name %>
+</p>
+
+<p>
+  <b>Paid back:</b>
+  <%= @shop_item.paid_back %>
+</p>
+
+
+<%= link_to 'Edit', edit_shop_item_path(@shop_item) %> |
+<%= link_to 'Back', shop_items_path %>

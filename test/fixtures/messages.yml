@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  from_id: 1
+  to_id: 1
+  flat_id: 1
+  contents: MyText
+  received: false
+  context: MyString
+
+two:
+  from_id: 1
+  to_id: 1
+  flat_id: 1
+  contents: MyText
+  received: false
+  context: MyString

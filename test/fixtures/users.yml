@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  first_name: MyString
+  last_name: MyString
+  flat_id: 1
+  geocode_lat: 1.5
+  geocode_long: 1.5
+  phone_number: MyString
+
+two:
+  first_name: MyString
+  last_name: MyString
+  flat_id: 1
+  geocode_lat: 1.5
+  geocode_long: 1.5
+  phone_number: MyString

@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  flat_id: 1
+  user_want_id: 1
+  user_bought_id: 1
+  price: 9.99
+  name: MyString
+  paid_back: false
+
+two:
+  flat_id: 1
+  user_want_id: 1
+  user_bought_id: 1
+  price: 9.99
+  name: MyString
+  paid_back: false

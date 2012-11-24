@@ -1,0 +1,31 @@
+<h1>Listing flats</h1>
+
+<table>
+  <tr>
+    <th>Nickname</th>
+    <th>Postcode</th>
+    <th>Description</th>
+    <th>Geocode lat</th>
+    <th>Geocode long</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @flats.each do |flat| %>
+  <tr>
+    <td><%= flat.nickname %></td>
+    <td><%= flat.postcode %></td>
+    <td><%= flat.description %></td>
+    <td><%= flat.geocode_lat %></td>
+    <td><%= flat.geocode_long %></td>
+    <td><%= link_to 'Show', flat %></td>
+    <td><%= link_to 'Edit', edit_flat_path(flat) %></td>
+    <td><%= link_to 'Destroy', flat, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Flat', new_flat_path %>

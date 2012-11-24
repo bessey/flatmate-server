@@ -1,0 +1,33 @@
+<h1>Listing shop_items</h1>
+
+<table>
+  <tr>
+    <th>Flat</th>
+    <th>User want</th>
+    <th>User bought</th>
+    <th>Price</th>
+    <th>Name</th>
+    <th>Paid back</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @shop_items.each do |shop_item| %>
+  <tr>
+    <td><%= shop_item.flat_id %></td>
+    <td><%= shop_item.user_want_id %></td>
+    <td><%= shop_item.user_bought_id %></td>
+    <td><%= shop_item.price %></td>
+    <td><%= shop_item.name %></td>
+    <td><%= shop_item.paid_back %></td>
+    <td><%= link_to 'Show', shop_item %></td>
+    <td><%= link_to 'Edit', edit_shop_item_path(shop_item) %></td>
+    <td><%= link_to 'Destroy', shop_item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Shop item', new_shop_item_path %>

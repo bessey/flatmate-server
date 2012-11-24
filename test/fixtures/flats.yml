@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  nickname: MyString
+  postcode: MyString
+  description: MyText
+  geocode_lat: 1.5
+  geocode_long: 1.5
+
+two:
+  nickname: MyString
+  postcode: MyString
+  description: MyText
+  geocode_lat: 1.5
+  geocode_long: 1.5

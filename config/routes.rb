@@ -1,4 +1,12 @@
 RubyRailsSample::Application.routes.draw do
+  resources :messages
+
+  resources :shop_items
+
+  resources :users
+
+  resources :flats
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
