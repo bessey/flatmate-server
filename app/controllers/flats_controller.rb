@@ -1,6 +1,9 @@
 class FlatsController < ApplicationController
   # GET /flats
   # GET /flats.json
+
+  before_filter :authenticate_user!
+
   def index
     @flats = Flat.all
 
