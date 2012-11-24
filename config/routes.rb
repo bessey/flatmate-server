@@ -9,6 +9,8 @@ FlatMate::Application.routes.draw do
 
   resources :flats
 
+  resources :tokens, :only => [:create, :destroy]
+
   root :to => "application#index"
 
   # The priority is based upon order of creation:
