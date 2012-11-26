@@ -1,13 +1,12 @@
 FlatMate::Application.routes.draw do
   devise_for :users
 
-  resources :messages
-
-  resources :shop_items
-
   resources :users
 
-  resources :flats
+  resources :flats do
+    resources :messages
+    resources :shop_items
+  end
 
   resources :tokens, :only => [:create, :destroy]
 
