@@ -16,11 +16,11 @@ class FlatsController < ApplicationController
   # GET /flats/1
   # GET /flats/1.json
   def show
-    @flat = Flat.find(params[:id])
+    @flat = Flat.includes(:users).find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @flat }
+      format.json { render json: @flat.to_json(:include => [:users]) }
     end
   end
 
