@@ -5,7 +5,7 @@ FlatMate::Application.routes.draw do
 
   resources :flats, :defaults => { :format => 'json' } do
     collection do 
-      get "search/(:search)" => "flats#search"
+      get "search/(:search)/(:nickname)" => "flats#search"
     end
     resources :messages, :defaults => { :format => 'json' }
     resources :shop_items, :defaults => { :format => 'json' }

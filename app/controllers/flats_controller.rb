@@ -85,8 +85,9 @@ class FlatsController < ApplicationController
   end
 
   def search
-    @search = params[:search]
-    @flats = Flat.where(:postcode => @search)
+    @search = params[:search].gsub(/[^0-9a-z]/i, '').upcase
+    @nickname = params[:nickname]
+  @flats = Flat.where("postcode LIKE '%#{@search}%' AND nickname LIKE '%#{@nickname}%'").limit(10)
     respond_to do |format|
       format.json { render json: @flats }
     end
