@@ -1,14 +1,19 @@
 FlatMate::Application.routes.draw do
   devise_for :users
 
-  resources :users
+  namespace :api do
+    resources :users, :defaults => { :format => 'json' }
 
-  resources :flats do
-    resources :messages
-    resources :shop_items
+    resources :flats, :defaults => { :format => 'json' } do
+      collection do 
+        get "search/(:search)" => "flats#search"
+      end
+      resources :messages, :defaults => { :format => 'json' }
+      resources :shop_items, :defaults => { :format => 'json' }
+    end
+    resources :tokens, :only => [:create, :destroy], :defaults => { :format => 'json' }
   end
 
-  resources :tokens, :only => [:create, :destroy]
 
   root :to => "application#index"
 

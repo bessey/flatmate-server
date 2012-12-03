@@ -83,4 +83,13 @@ class FlatsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def search
+    @search = params[:search]
+    @flats = Flat.where(:postcode => @search)
+    respond_to do |format|
+      format.json { render json: @flats }
+    end
+  end
+
 end
