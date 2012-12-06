@@ -2,7 +2,7 @@ class ShopItemsController < ApplicationController
   # GET /shop_items
   # GET /shop_items.json
 
-  before_filter :authenticate_user!
+  #before_filter :authenticate_user!
 
   def index
     @shop_items = ShopItem.all
