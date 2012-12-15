@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
          :token_authenticatable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :authentication_token
   attr_accessible :first_name, :flat_id, :geocode_lat, :geocode_long, :last_name, :phone_number
 
   validates :email, :password, :first_name, :presence => true
