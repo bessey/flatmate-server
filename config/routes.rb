@@ -1,7 +1,11 @@
 FlatMate::Application.routes.draw do
-  #devise_for :users
+  devise_for :users
 
-  resources :users, :defaults => { :format => 'json' }, :except => [:new]
+  resources :users, :defaults => { :format => 'json' }, :except => [:new] do
+    collection do
+      get "m"
+    end
+  end
 
   resources :flats, :defaults => { :format => 'json' }, :except => [:new] do
     collection do 
