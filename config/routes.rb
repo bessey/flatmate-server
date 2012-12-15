@@ -9,6 +9,7 @@ FlatMate::Application.routes.draw do
 
   resources :flats, :defaults => { :format => 'json' }, :except => [:new] do
     collection do 
+      get "m"
       get "search/(:search)/(:nickname)" => "flats#search"
     end
     resources :messages, :defaults => { :format => 'json' }, :except => [:new]

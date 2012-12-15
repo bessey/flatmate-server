@@ -24,6 +24,16 @@ class FlatsController < ApplicationController
     end
   end
 
+  def m
+    @flat = current_user.flat
+
+    respond_to do |format|
+      format.html # show.html.erb
+      format.json { render json: @user }
+    end
+  end
+
+
   # GET /flats/new
   # GET /flats/new.json
   def new
