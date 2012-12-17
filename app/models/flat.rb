@@ -8,10 +8,10 @@ class Flat < ActiveRecord::Base
   validates :nickname, :uniqueness => true
 
   def sanitise pc
-  	pc.gsub(/[^0-9a-z]/i, '').upcase
+      pc.gsub(/[^0-9a-z]/i, '').upcase 
   end
 
   def sanitise_postcode
-  	postcode = sanitise(postcode)
+  	self.postcode = sanitise(self.postcode)
   end
 end
