@@ -4,9 +4,8 @@ class ApplicationController < ActionController::Base
 
   def find_flat
     @flat = Flat.find(params[:flat_id])
-    if @flat.id != current_user.flat_id
+    if @flat.id != current_user.flat_id and request.format == :json
 	    respond_to do |format|
-	       format.html # index.html.erb
 	       format.json { render json: "Error: This is not your flat! Your flat is #{current_user.flat_id}" }
 	    end
 	end
