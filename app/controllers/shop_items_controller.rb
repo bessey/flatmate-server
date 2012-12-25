@@ -2,10 +2,11 @@ class ShopItemsController < ApplicationController
   # GET /shop_items
   # GET /shop_items.json
 
-  #before_filter :authenticate_user!
+  before_filter :authenticate_user!
+  before_filter :find_flat
 
   def index
-    @shop_items = ShopItem.all
+    @shop_items = @flat.shop_items
 
     respond_to do |format|
       format.html # index.html.erb
@@ -16,7 +17,7 @@ class ShopItemsController < ApplicationController
   # GET /shop_items/1
   # GET /shop_items/1.json
   def show
-    @shop_item = ShopItem.find(params[:id])
+    @shop_item = @flat.shop_items.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -27,7 +28,7 @@ class ShopItemsController < ApplicationController
   # GET /shop_items/new
   # GET /shop_items/new.json
   def new
-    @shop_item = ShopItem.new
+    @shop_item = @flat.shop_items.build
 
     respond_to do |format|
       format.html # new.html.erb
@@ -37,13 +38,13 @@ class ShopItemsController < ApplicationController
 
   # GET /shop_items/1/edit
   def edit
-    @shop_item = ShopItem.find(params[:id])
+    @shop_item = @flat.shop_items.find(params[:id])
   end
 
   # POST /shop_items
   # POST /shop_items.json
   def create
-    @shop_item = ShopItem.new(params[:shop_item])
+    @shop_item = @flat.shop_items.build(params[:shop_item])
 
     respond_to do |format|
       if @shop_item.save
@@ -59,7 +60,7 @@ class ShopItemsController < ApplicationController
   # PUT /shop_items/1
   # PUT /shop_items/1.json
   def update
-    @shop_item = ShopItem.find(params[:id])
+    @shop_item = @flat.shop_items.find(params[:id])
 
     respond_to do |format|
       if @shop_item.update_attributes(params[:shop_item])
@@ -75,7 +76,7 @@ class ShopItemsController < ApplicationController
   # DELETE /shop_items/1
   # DELETE /shop_items/1.json
   def destroy
-    @shop_item = ShopItem.find(params[:id])
+    @shop_item = @flat.shop_items.find(params[:id])
     @shop_item.destroy
 
     respond_to do |format|

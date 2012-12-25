@@ -2,10 +2,12 @@ class MessagesController < ApplicationController
   # GET /messages
   # GET /messages.json
 
-  #before_filter :authenticate_user!
+  before_filter :authenticate_user!
+
+  before_filter :find_flat
 
   def index
-    @messages = Message.all
+    @messages = @flat.messages
 
     respond_to do |format|
       format.html # index.html.erb
@@ -16,7 +18,7 @@ class MessagesController < ApplicationController
   # GET /messages/1
   # GET /messages/1.json
   def show
-    @message = Message.find(params[:id])
+    @message = @flat.messages.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -27,7 +29,7 @@ class MessagesController < ApplicationController
   # GET /messages/new
   # GET /messages/new.json
   def new
-    @message = Message.new
+    @message = @flat.messages.build
 
     respond_to do |format|
       format.html # new.html.erb
@@ -37,13 +39,13 @@ class MessagesController < ApplicationController
 
   # GET /messages/1/edit
   def edit
-    @message = Message.find(params[:id])
+    @message = @flat.messages.find(params[:id])
   end
 
   # POST /messages
   # POST /messages.json
   def create
-    @message = Message.new(params[:message])
+    @message = @flat.messages.build(params[:message])
 
     respond_to do |format|
       if @message.save
@@ -59,7 +61,7 @@ class MessagesController < ApplicationController
   # PUT /messages/1
   # PUT /messages/1.json
   def update
-    @message = Message.find(params[:id])
+    @message = @flat.messages.find(params[:id])
 
     respond_to do |format|
       if @message.update_attributes(params[:message])
@@ -75,7 +77,7 @@ class MessagesController < ApplicationController
   # DELETE /messages/1
   # DELETE /messages/1.json
   def destroy
-    @message = Message.find(params[:id])
+    @message = @flat.messages.find(params[:id])
     @message.destroy
 
     respond_to do |format|
