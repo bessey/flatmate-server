@@ -25,6 +25,12 @@
   <%= @flat.geocode_long %>
 </p>
 
+<p>
+  <%= link_to "Messages", flat_messages_path(@flat, :format => :html) %>
+</p>
+<p>
+  <%= link_to "ShopItems", flat_shop_items_path(@flat, :format => :html) %>
+</p>
 
 <%= link_to 'Edit', edit_flat_path(@flat) %> |
 <%= link_to 'Back', flats_path %>

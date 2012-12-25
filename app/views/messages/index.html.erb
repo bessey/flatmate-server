@@ -21,8 +21,8 @@
     <td><%= message.contents %></td>
     <td><%= message.received %></td>
     <td><%= message.context %></td>
-    <td><%= link_to 'Show', message %></td>
-    <td><%= link_to 'Edit', edit_message_path(message) %></td>
+    <td><%= link_to 'Show', flat_message_path(@flat,message,:format => :html) %></td>
+    <td><%= link_to 'Edit', edit_flat_message_path(@flat,message,:format => :html) %></td>
     <td><%= link_to 'Destroy', message, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
 <% end %>
@@ -30,4 +30,4 @@
 
 <br />
 
-<%= link_to 'New Message', new_message_path %>
+<%= link_to 'New Message', new_flat_message_path(@flat,:format => :html) %>

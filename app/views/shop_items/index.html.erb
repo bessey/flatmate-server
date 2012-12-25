@@ -21,13 +21,13 @@
     <td><%= shop_item.price %></td>
     <td><%= shop_item.name %></td>
     <td><%= shop_item.paid_back %></td>
-    <td><%= link_to 'Show', shop_item %></td>
-    <td><%= link_to 'Edit', edit_shop_item_path(shop_item) %></td>
-    <td><%= link_to 'Destroy', shop_item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><%= link_to 'Show', flat_shop_item_path(@flat,shop_item, :format => :html) %></td>
+    <td><%= link_to 'Edit', edit_flat_shop_item_path(@flat,shop_item, :format => :html) %></td>
+    <td><%= link_to 'Destroy', [@flat,shop_item], method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New Shop item', new_shop_item_path %>
+<%= link_to 'New Shop item', new_flat_shop_item_path(@flat, :format => :html) %>
