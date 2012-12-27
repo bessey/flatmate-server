@@ -54,9 +54,17 @@ class FlatsController < ApplicationController
   # POST /flats.json
   def create
     @flat = Flat.new(params[:flat])
+    
+    # Approve yourself when you create a flat!
+    @result = @flat.save
+    if user_logged_in
+      current_user.flat_approved = true
+      current_user.flat_id = @result.id
+      current_user.save
+    end
 
     respond_to do |format|
-      if @flat.save
+      if @result
         format.html { redirect_to @flat, notice: 'Flat was successfully created.' }
         format.json { render json: @flat, status: :created, location: @flat }
       else

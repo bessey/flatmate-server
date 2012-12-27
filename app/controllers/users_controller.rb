@@ -3,9 +3,14 @@ class UsersController < ApplicationController
   # GET /users.json
 
   before_filter :authenticate_user!, :except => [:create]
+  before_filter :find_flat, :only => [:review]
 
   def index
-    @users = User.all
+    if params[:flat_id]
+      @users = Flat.find(params[:flat_id]).users
+    else
+      @users = User.all
+    end
 
     respond_to do |format|
       format.html # index.html.erb
@@ -22,6 +27,36 @@ class UsersController < ApplicationController
       format.html # show.html.erb
       format.json { render json: @user }
     end
+  end
+
+  # Review whether a user can join a group or not
+  def review
+    @user = @flat.users.find(params[:id])
+    if @user == current_user
+      respond_to do |format|
+        format.html { render text: "You can't approve yourself!"}
+        format.json { render json: "You can't approve yourself!" }
+      end
+      return
+    end
+
+    if params[:user].nil? or params[:user][:approve].nil?
+      respond_to do |format|
+        format.html { render text: "Please send either user[approve] = true or false"}
+        format.json { render json: "Please send either user[approve] = true or false" }
+      end
+      return
+    end
+
+
+    if params[:user][:approve] == true
+      @user.flat_approved = true
+    else
+      @user.flat_id = nil
+    end
+
+    @user.save
+
   end
 
   def m
@@ -88,7 +123,13 @@ class UsersController < ApplicationController
   # DELETE /users/1.json
   def destroy
     @user = User.find(params[:id])
+    @device = Gcm::Device.where(:user_id => params[:id])
+    
     @user.destroy
+
+    if !@device.empty?
+      @device.destroy_all
+    end
 
     respond_to do |format|
       format.html { redirect_to users_url }

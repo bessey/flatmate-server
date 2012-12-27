@@ -14,6 +14,11 @@ FlatMate::Application.routes.draw do
     end
     resources :messages, :defaults => { :format => 'json' }
     resources :shop_items, :defaults => { :format => 'json' }
+    resources :users, :defaults => { :format => 'json' }, :only => [:index] do
+      member do
+        match "review"
+      end
+    end
   end
   resources :tokens, :only => [:create, :destroy], :defaults => { :format => 'json' }
 
