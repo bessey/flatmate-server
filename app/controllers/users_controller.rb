@@ -54,13 +54,15 @@ class UsersController < ApplicationController
   def create
     @user = User.new(params[:user])
 
+    @device = Gcm::Device.new(:registration_id => params[:gcm][:registration_id], :user_id => @user.id)
+
     respond_to do |format|
-      if @user.save
+      if @user.save and @device.save
         format.html { redirect_to @user, notice: 'User was successfully created.' }
         format.json { render json: @user, status: :created, location: @user }
       else
         format.html { render action: "new" }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
+        format.json { render json: [@user.errors, @device.errors], status: :unprocessable_entity }
       end
     end
   end
@@ -69,14 +71,15 @@ class UsersController < ApplicationController
   # PUT /users/1.json
   def update
     @user = User.find(params[:id])
+    @device = Gcm::Device.find_by_user_id(params[:id])
 
     respond_to do |format|
-      if @user.update_attributes(params[:user])
+      if @user.update_attributes(params[:user]) and @device.update_attributes(params[:gcm])
         format.html { redirect_to @user, notice: 'User was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
+        format.json { render json: [@user.errors, @device.errors], status: :unprocessable_entity }
       end
     end
   end
