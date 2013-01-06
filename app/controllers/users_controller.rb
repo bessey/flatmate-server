@@ -106,21 +106,24 @@ class UsersController < ApplicationController
   # PUT /users/1.json
   def update
     @user = User.find(params[:id])
-    @device = Gcm::Device.find_by_user_id(params[:id])
 
     respond_to do |format|
       if @user.update_attributes(params[:user])
-        if @device 
-          if @device.update_attributes(params[:gcm])
-            format.html { redirect_to @user, notice: 'User and GcmDevice were successfully updated.' }
-            format.json { head :no_content }
-          else
-            format.html { render action: "edit" }
-            format.json { render json: @device.errors, status: :unprocessable_entity }
-          end
+        # Create a Device if the user doesn't have one
+        if @user.gcm_device.nil?
+          @device = Gcm::Device.new
+          @device.user_id = params[:id]
+        else
+          @device = @user.gcm_device
         end
-        format.html { redirect_to @user, notice: 'User was successfully updated.' }
-        format.json { head :no_content }
+
+        if @device.update_attributes(params[:gcm])
+          format.html { redirect_to @user, notice: 'User and GcmDevice were successfully updated.' }
+          format.json { head :no_content }
+        else
+          format.html { render action: "edit" }
+          format.json { render json: @device.errors, status: :unprocessable_entity }
+        end
       else
         format.html { render action: "edit" }
         format.json { render json: @user.errors, status: :unprocessable_entity }
