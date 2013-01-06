@@ -15,6 +15,7 @@ class User < ActiveRecord::Base
   validates :email, :uniqueness => true
 
   belongs_to :flat
+  has_one :gcm_device, :class_name => "Gcm::Device"
 
   before_save :defaults
 
