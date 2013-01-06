@@ -109,12 +109,21 @@ class UsersController < ApplicationController
     @device = Gcm::Device.find_by_user_id(params[:id])
 
     respond_to do |format|
-      if @user.update_attributes(params[:user]) and @device.update_attributes(params[:gcm])
+      if @user.update_attributes(params[:user])
+        if @device 
+          if @device.update_attributes(params[:gcm])
+            format.html { redirect_to @user, notice: 'User and GcmDevice were successfully updated.' }
+            format.json { head :no_content }
+          else
+            format.html { render action: "edit" }
+            format.json { render json: @device.errors, status: :unprocessable_entity }
+          end
+        end
         format.html { redirect_to @user, notice: 'User was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
-        format.json { render json: [@user.errors, @device.errors], status: :unprocessable_entity }
+        format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
   end
