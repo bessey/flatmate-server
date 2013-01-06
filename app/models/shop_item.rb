@@ -12,7 +12,10 @@ class ShopItem < ActiveRecord::Base
       :data => {
         :registration_ids => recipient_ids,
         :item => self.name,
-        :user_want_id => self.user_want_id
+        :user_want_id => self.user_want_id,
+        :user_bought_id => self.user_bought_id,
+        :price => self.price,
+        :paid_back => self.paid_back
         },
       :collapse_key => "New shopping")
     notification.save

@@ -11,7 +11,10 @@ class Message < ActiveRecord::Base
       :data => {
         :registration_ids => recipient_ids,
         :message => self.contents, 
-        :from_id => self.from_id
+        :from_id => self.from_id,
+        :flat_id => self.flat_id,
+        :to_id => self.to_id,
+        :context => self.context
         },
       :collapse_key => "New messages")
     notification.save
