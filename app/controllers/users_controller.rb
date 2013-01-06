@@ -89,7 +89,9 @@ class UsersController < ApplicationController
   def create
     @user = User.new(params[:user])
 
-    @device = Gcm::Device.new(:registration_id => params[:gcm][:registration_id], :user_id => @user.id)
+    @device = Gcm::Device.new(:registration_id => params[:gcm][:registration_id])
+    @device.user_id =  @user.id
+    @device.last_registered_at = Time.now
 
     respond_to do |format|
       if @user.save and @device.save
@@ -116,6 +118,8 @@ class UsersController < ApplicationController
         else
           @device = @user.gcm_device
         end
+
+        @device.last_registered_at = Time.now
 
         if @device.update_attributes(params[:gcm])
           format.html { redirect_to @user, notice: 'User and GcmDevice were successfully updated.' }
