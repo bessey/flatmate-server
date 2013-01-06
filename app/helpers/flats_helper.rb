@@ -1,6 +1,6 @@
 module FlatsHelper
 
-	def find id, authenticate = false
+	def self.find id, authenticate = false
 	    if id == "m"
 	      flat = current_user.flat
 	    else
