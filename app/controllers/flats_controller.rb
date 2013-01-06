@@ -2,7 +2,7 @@ class FlatsController < ApplicationController
   # GET /flats
   # GET /flats.json
 
-  before_filter :authenticate_user!
+  before_filter :authenticate_user!, :except => :search
 
   def index
     @flats = Flat.all

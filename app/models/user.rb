@@ -19,9 +19,9 @@ class User < ActiveRecord::Base
   before_save :defaults
 
   def defaults
-    if self.flat_approved.nil? or self.flat_id_changed?
-      self.flat_approved = false
-    end
+    #if self.flat_approved.nil? or self.flat_id_changed?
+    #  self.flat_approved = false
+    #end
 
     return true
   end
