@@ -1,5 +1,5 @@
 class ShopItem < ActiveRecord::Base
-  attr_accessible :flat_id, :name, :paid_back, :price, :user_bought_id, :user_want_id
+  attr_accessible :flat_id, :name, :paid_back, :price, :user_bought_id, :user_want_id, :updated_at
 
   validates :flat_id, :name, :user_want_id, :presence => true
 
