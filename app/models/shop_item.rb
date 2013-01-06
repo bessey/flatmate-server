@@ -15,7 +15,8 @@ class ShopItem < ActiveRecord::Base
         :user_want_id => self.user_want_id,
         :user_bought_id => self.user_bought_id,
         :price => self.price,
-        :paid_back => self.paid_back
+        :paid_back => self.paid_back,
+        :id => self.id
         },
       :collapse_key => "New shopping")
     notification.save
