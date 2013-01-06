@@ -48,8 +48,8 @@ class ShopItemsController < ApplicationController
 
     respond_to do |format|
       if @shop_item.save
-        format.html { redirect_to @shop_item, notice: 'Shop item was successfully created.' }
-        format.json { render json: @shop_item, status: :created, location: @shop_item }
+        format.html { redirect_to [@flat, @shop_item], notice: 'Shop item was successfully created.' }
+        format.json { render json: @shop_item, status: :created, location: [@flat, @shop_item] }
       else
         format.html { render action: "new" }
         format.json { render json: @shop_item.errors, status: :unprocessable_entity }
@@ -64,7 +64,7 @@ class ShopItemsController < ApplicationController
 
     respond_to do |format|
       if @shop_item.update_attributes(params[:shop_item])
-        format.html { redirect_to @shop_item, notice: 'Shop item was successfully updated.' }
+        format.html { redirect_to [@flat, @shop_item], notice: 'Shop item was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
