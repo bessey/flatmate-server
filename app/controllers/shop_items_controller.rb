@@ -45,7 +45,7 @@ class ShopItemsController < ApplicationController
   # POST /shop_items.json
   def create
     @shop_item = @flat.shop_items.build(params[:shop_item])
-    @shop_item.send_out
+    @shop_item.send_out(@flat.id)
 
     respond_to do |format|
       if @shop_item.save
