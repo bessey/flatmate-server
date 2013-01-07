@@ -16,7 +16,7 @@ class FlatsController < ApplicationController
   # GET /flats/1
   # GET /flats/1.json
   def show
-    @flat = Flat.includes(:users).find(params[:id])
+    @flat = Flat.includes(:users,:shop_items).find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -34,11 +34,11 @@ class FlatsController < ApplicationController
       end
     end
 
-    @flat = Flat.includes(:users).find(@flat_id)
+    @flat = Flat.includes(:users,:shop_items).find(@flat_id)
 
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @flat.to_json(:include => [:users]) }
+      format.json { render json: @flat.to_json(:include => [:users,:shop_items]) }
     end
   end
 
