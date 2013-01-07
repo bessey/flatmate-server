@@ -12,13 +12,15 @@ class ShopItem < ActiveRecord::Base
       notification = sender.gcm_device.notifications.build()
       notification.data = {
           :registration_ids => recipient_ids,
-          :item => self.name,
-          :user_want_id => self.user_want_id,
-          :user_bought_id => self.user_bought_id,
-          :price => self.price,
-          :paid_back => self.paid_back,
-          :id => self.id
+          :data => {
+            :item => self.name,
+            :user_want_id => self.user_want_id,
+            :user_bought_id => self.user_bought_id,
+            :price => self.price,
+            :paid_back => self.paid_back,
+            :id => self.id
           }
+        }
       notification.collapse_key = "New shopping"
       notification.save
    		Gcm::Notification.send_notifications
@@ -27,10 +29,10 @@ class ShopItem < ActiveRecord::Base
 
   def self.test(sender)
     s = ShopItem.new(
-          :item => "Zaffa Cakes",
+          :name => "Zaffa Cakes",
           :user_want_id => sender.id,
           )
-    s.save
+    s.savez
     s.send_out(sender)
   end
 
