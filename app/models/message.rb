@@ -23,7 +23,7 @@ class Message < ActiveRecord::Base
   end
 
   def self.test(sender)
-    m = Message(
+    m = Message.new(
           :contents => "Hey guys, got a message for you! ",
           :flat_id => sender.flat_id,
           :from_id => sender.id,
