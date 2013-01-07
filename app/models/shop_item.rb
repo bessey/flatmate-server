@@ -32,7 +32,7 @@ class ShopItem < ActiveRecord::Base
           :name => "Zaffa Cakes",
           :user_want_id => sender.id,
           )
-    s.savez
+    s.save
     s.send_out(sender)
   end
 
