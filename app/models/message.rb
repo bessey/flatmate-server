@@ -5,12 +5,12 @@ class Message < ActiveRecord::Base
   belongs_to :flat
 
   def send_out(sender)
-    recipient_ids = 
-      User.joins(:gcm_device).where(:flat_id => sender.flat_id).map{ |u| u.gcm_device.registration_id }
+    recipient = User.joins(:gcm_device).where(:flat_id => sender.flat_id)
     if sender.gcm_device
-      notification = sender.gcm_device.notifications.build()
+      recipient.each do |recipient|
+      notification = recipient.gcm_device.notifications.build()
       notification.data = {
-          :registration_ids => recipient_ids,
+          #:registration_ids => recipient_ids,
           :message => self.contents, 
           :from_id => self.from_id,
           :flat_id => self.flat_id,
