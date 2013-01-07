@@ -46,7 +46,7 @@ class MessagesController < ApplicationController
   # POST /messages.json
   def create
     @message = @flat.messages.build(params[:message])
-    @message.send_out(@flat.id)
+    @message.send_out(current_user)
 
     respond_to do |format|
       if @message.save

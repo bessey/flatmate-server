@@ -5,10 +5,10 @@ class ShopItem < ActiveRecord::Base
 
   belongs_to :flat
 
-  def send_out(flat_id)
+  def send_out(sender)
   	recipient_ids = 
-  		User.joins(:gcm_device).where(:flat_id => flat_id).map{ |u| u.gcm_device.registration_id }
-    notification = member.gcm_device.notifications.build(
+  		User.joins(:gcm_device).where(:flat_id => sender.flat_id).map{ |u| u.gcm_device.registration_id }
+    notification = sender.gcm_device.notifications.build(
       :data => {
         :registration_ids => recipient_ids,
         :item => self.name,
