@@ -25,11 +25,12 @@ class FlatsController < ApplicationController
   end
 
   def m
-    @flat = current_user.flat
+    @flat_id = current_user.flat_id
+    @flat = Flat.includes(:users).find(@flat_id)
 
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @user }
+      format.json { render json: @flat.to_json(:include => [:users]) }
     end
   end
 
