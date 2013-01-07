@@ -26,6 +26,14 @@ class FlatsController < ApplicationController
 
   def m
     @flat_id = current_user.flat_id
+
+    if @flat_id.nil? 
+      respond_to do |format|
+        format.html # show.html.erb
+        format.json { render json: {:flat_id_error => "Flat ID not set"} }
+      end
+    end
+
     @flat = Flat.includes(:users).find(@flat_id)
 
     respond_to do |format|
