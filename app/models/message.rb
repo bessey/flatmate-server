@@ -22,4 +22,15 @@ class Message < ActiveRecord::Base
     Gcm::Notification.send_notifications
   end
 
+  def self.test(sender)
+    m = Message(
+          :contents => "Hey guys, got a message for you! ",
+          :flat_id => sender.flat_id,
+          :from_id => sender.id,
+          :context => "in",
+          )
+    m.save
+    m.send_out(sender)
+  end
+
 end
