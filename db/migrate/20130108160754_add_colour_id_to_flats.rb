@@ -1,5 +1,5 @@
-class AddColourIdToFlats < ActiveRecord::Migration
+class AddColourIdToUsers < ActiveRecord::Migration
   def change
-    add_column :flats, :colour_id, :int
+    add_column :users, :colour_id, :int
   end
 end
