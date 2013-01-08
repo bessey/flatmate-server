@@ -16,7 +16,13 @@ class FlatsController < ApplicationController
   # GET /flats/1
   # GET /flats/1.json
   def show
-    @flat = Flat.includes(:users,:shop_items).find(params[:id])
+    if params[:id] == "m"
+      @flat_id = current_user.flat_id
+    else
+      @flat_id = params[:id]
+    end
+    
+    @flat = Flat.includes(:users,:shop_items).find(@flat_id)
 
     respond_to do |format|
       format.html # show.html.erb

@@ -1,15 +1,10 @@
 FlatMate::Application.routes.draw do
   devise_for :users
 
-  resources :users, :defaults => { :format => 'json' } do
-    collection do
-      get "m"
-    end
-  end
+  resources :users, :defaults => { :format => 'json' }
 
   resources :flats, :defaults => { :format => 'json' } do
     collection do 
-      get "m"
       get "search/(:search)/(:nickname)" => "flats#search"
     end
     resources :messages, :defaults => { :format => 'json' }
