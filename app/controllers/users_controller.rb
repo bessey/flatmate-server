@@ -4,6 +4,15 @@ class UsersController < ApplicationController
 
   before_filter :authenticate_user!
   before_filter :find_flat, :only => [:review]
+  before_filter :me, :only => [:show,:edit,:update,:destroy]
+
+  def me
+    if params[:id] == "m"
+      @user = current_user
+    else
+      @user = User.find(params[:id])
+    end
+  end
 
   def index
     if params[:flat_id]
@@ -21,11 +30,6 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
-    if params[:id] == "m"
-      @user = current_user
-    else
-      @user = User.find(params[:id])
-  end
 
     respond_to do |format|
       format.html # show.html.erb
@@ -61,15 +65,6 @@ class UsersController < ApplicationController
 
     @user.save
 
-  end
-
-  def m
-    @user = current_user
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @user }
-    end
   end
 
   # GET /users/new
