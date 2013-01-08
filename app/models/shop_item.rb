@@ -5,6 +5,8 @@ class ShopItem < ActiveRecord::Base
 
   belongs_to :flat
 
+  default_scope order("updated_at DESC").where('paid_back != true')
+
   def send_out(sender)
   	recipient_ids = 
   		User.joins(:gcm_device).where(:flat_id => sender.flat_id).map{ |u| u.gcm_device.registration_id }
