@@ -19,6 +19,8 @@ class User < ActiveRecord::Base
 
   before_save :defaults
 
+  default_scope order(:first_name)
+
   def defaults
     if self.flat_approved.nil? or self.flat_id_changed?
       self.flat_approved = false
