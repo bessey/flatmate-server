@@ -5,7 +5,7 @@ class ShopItem < ActiveRecord::Base
 
   belongs_to :flat
 
-  default_scope order("updated_at DESC").where('paid_back != true')
+  default_scope order("updated_at DESC").where('paid_back != ?',true)
 
   def send_out(sender)
   	recipient_ids = 
