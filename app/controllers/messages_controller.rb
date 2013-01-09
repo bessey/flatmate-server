@@ -3,8 +3,15 @@ class MessagesController < ApplicationController
   # GET /messages.json
 
   before_filter :authenticate_user!
+  before_filter :me
 
-  before_filter :find_flat
+  def me
+    if params[:flat_id] == "m"
+      @flat = current_user.flat
+    else
+      @flat = Flat.find(params[:flat_id])
+    end
+  end
 
   def index
     @messages = @flat.messages

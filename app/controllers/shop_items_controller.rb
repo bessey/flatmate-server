@@ -3,7 +3,15 @@ class ShopItemsController < ApplicationController
   # GET /shop_items.json
 
   before_filter :authenticate_user!
-  before_filter :find_flat
+  before_filter :me
+
+  def me
+    if params[:flat_id] == "m"
+      @flat = current_user.flat
+    else
+      @flat = Flat.find(params[:flat_id])
+    end
+  end
 
   def index
     @shop_items = @flat.shop_items
