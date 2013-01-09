@@ -38,6 +38,7 @@ class UsersController < ApplicationController
 
   # Review whether a user can join a group or not
   def review
+    @flat = Flat.find(params[:flat_id])
     @user = @flat.users.find(params[:id])
     if @user == current_user
       respond_to do |format|
