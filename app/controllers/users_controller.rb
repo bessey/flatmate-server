@@ -3,7 +3,6 @@ class UsersController < ApplicationController
   # GET /users.json
 
   before_filter :authenticate_user!
-  before_filter :find_flat, :only => [:review]
   before_filter :me, :only => [:show,:edit,:update,:destroy]
 
   def me
