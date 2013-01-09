@@ -3,6 +3,17 @@ class FlatsController < ApplicationController
   # GET /flats.json
 
   before_filter :authenticate_user!, :except => :search
+  before_filter :me, :only => [:show,:edit,:update,:destroy]
+
+  def me
+    if params[:id] == "m"
+      @flat_id = current_user.flat_id
+    else
+      @flat_id = params[:id]
+    end
+    
+    @flat = Flat.includes(:users,:shop_items).find(@flat_id)
+  end
 
   def index
     @flats = Flat.all
@@ -16,38 +27,12 @@ class FlatsController < ApplicationController
   # GET /flats/1
   # GET /flats/1.json
   def show
-    if params[:id] == "m"
-      @flat_id = current_user.flat_id
-    else
-      @flat_id = params[:id]
-    end
-    
-    @flat = Flat.includes(:users,:shop_items).find(@flat_id)
 
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @flat.to_json(:include => [:users,:shop_items]) }
     end
   end
-
-  def m
-    @flat_id = current_user.flat_id
-
-    if @flat_id.nil? 
-      respond_to do |format|
-        format.html # show.html.erb
-        format.json { render json: {:flat_id_error => "Flat ID not set"} }
-      end
-    end
-
-    @flat = Flat.includes(:users,:shop_items).find(@flat_id)
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @flat.to_json(:include => [:users,:shop_items]) }
-    end
-  end
-
 
   # GET /flats/new
   # GET /flats/new.json
@@ -62,7 +47,6 @@ class FlatsController < ApplicationController
 
   # GET /flats/1/edit
   def edit
-    @flat = Flat.find(params[:id])
   end
 
   # POST /flats
@@ -92,7 +76,6 @@ class FlatsController < ApplicationController
   # PUT /flats/1
   # PUT /flats/1.json
   def update
-    @flat = Flat.find(params[:id])
 
     respond_to do |format|
       if @flat.update_attributes(params[:flat])
@@ -108,7 +91,6 @@ class FlatsController < ApplicationController
   # DELETE /flats/1
   # DELETE /flats/1.json
   def destroy
-    @flat = Flat.find(params[:id])
     @flat.destroy
 
     respond_to do |format|
