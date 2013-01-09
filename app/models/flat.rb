@@ -7,7 +7,7 @@ class Flat < ActiveRecord::Base
   validates :nickname, :postcode, :presence => true
   validates :nickname, :uniqueness => true
 
-  before_save :empty_check
+  #before_save :empty_check
 
   def sanitise pc
       pc.gsub(/[^0-9a-z]/i, '').upcase 
