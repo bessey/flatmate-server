@@ -59,11 +59,19 @@ class UsersController < ApplicationController
 
     if params[:user][:approve] == true or params[:user][:approve] == "true"
       @user.flat_approved = true
+      data = {
+        :msg_type => "approved", 
+        :approved_id => @user.id, 
+        :approver_first_name => current_user.first_name
+      }
+
     else
       @user.flat_id = nil
     end
 
     @user.save
+    @flat.send_notification current_user, data
+
     respond_to do |format|
       format.json { render json: "User has been approved" }
     end
@@ -130,7 +138,7 @@ class UsersController < ApplicationController
         if @device.update_attributes(params[:gcm])
           respond_to do |format|
             format.html { redirect_to @user, notice: 'User and GcmDevice were successfully updated.' }
-            format.json { head :no_content }
+            format.json { head json: 'User and GcmDevice were successfully updated.' }
           end
           return
         else
