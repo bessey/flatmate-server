@@ -87,29 +87,29 @@ class UsersController < ApplicationController
 
   # POST /users
   # POST /users.json
-  def create
-    @user = User.new(params[:user])
-    @ret = true
-
-    if params[:gcm] and params[:gcm][:registration_id]
-      @device = Gcm::Device.new(:registration_id => params[:gcm][:registration_id])
-      @device.user_id =  @user.id
-      @device.last_registered_at = Time.now
-      @ret = @device.save
-    end
-
-    if @user.save and @ret
-      respond_to do |format|
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
-        format.json { render json: @user, status: :created, location: @user }
-      end
-    else
-      respond_to do |format|
-        format.html { render action: "new" }
-        format.json { render json: [@user.errors], status: :unprocessable_entity }
-      end
-    end
-  end
+  #def create
+  #  @user = User.new(params[:user])
+  #  #@ret = true
+  #
+  #  #if params[:gcm] and params[:gcm][:registration_id]
+  #  #  @device = Gcm::Device.new(:registration_id => params[:gcm][:registration_id])
+  #  #  @device.user_id =  @user.id
+  #  #  @device.last_registered_at = Time.now
+  #  #  @ret = @device.save
+  #  #end
+  #
+  #  if @user.save and @ret
+  #    respond_to do |format|
+  #      format.html { redirect_to @user, notice: 'User was successfully created.' }
+  #      format.json { render json: @user, status: :created, location: @user }
+  #    end
+  #  else
+  #    respond_to do |format|
+  #      format.html { render action: "new" }
+  #      format.json { render json: [@user.errors], status: :unprocessable_entity }
+  #    end
+  #  end
+  #end
 
   # PUT /users/1
   # PUT /users/1.json
