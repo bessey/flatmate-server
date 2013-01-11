@@ -57,13 +57,16 @@ class UsersController < ApplicationController
     end
 
 
-    if params[:user][:approve] == true
+    if params[:user][:approve] == true or params[:user][:approve] == "true"
       @user.flat_approved = true
     else
       @user.flat_id = nil
     end
 
     @user.save
+    respond_to do |format|
+      format.json { render json: "User has been approved" }
+    end
 
   end
 
