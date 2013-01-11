@@ -95,14 +95,16 @@ class UsersController < ApplicationController
       @ret = @device.save
     end
 
-    respond_to do |format|
       if @user.save and @ret
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
-        format.json { render json: @user, status: :created, location: @user }
+        respond_to do |format|
+          format.html { redirect_to @user, notice: 'User was successfully created.' }
+          format.json { render json: @user, status: :created, location: @user }
+        end
       else
-        format.html { render action: "new" }
-        format.json { render json: [@user.errors], status: :unprocessable_entity }
-      end
+        respond_to do |format|
+          format.html { render action: "new" }
+          format.json { render json: [@user.errors], status: :unprocessable_entity }
+        end
     end
   end
 
@@ -110,7 +112,6 @@ class UsersController < ApplicationController
   # PUT /users/1.json
   def update
 
-    respond_to do |format|
       if @user.update_attributes(params[:user])
         # Create a Device if the user doesn't have one
         if params[:gcm] and params[:gcm][:registration_id]
@@ -124,16 +125,24 @@ class UsersController < ApplicationController
           @device.last_registered_at = Time.now
 
           if @device.update_attributes(params[:gcm])
-            format.html { redirect_to @user, notice: 'User and GcmDevice were successfully updated.' }
-            format.json { head :no_content }
+            respond_to do |format|
+              format.html { redirect_to @user, notice: 'User and GcmDevice were successfully updated.' }
+              format.json { head :no_content }
+            end
+            return
           else
-            format.html { render action: "edit" }
-            format.json { render json: @device.errors, status: :unprocessable_entity }
+            respond_to do |format|
+              format.html { render action: "edit" }
+              format.json { render json: @device.errors, status: :unprocessable_entity }
+            end
+            return
           end
         end
       else
-        format.html { render action: "edit" }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
+        respond_to do |format|
+          format.html { render action: "edit" }
+          format.json { render json: @user.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
