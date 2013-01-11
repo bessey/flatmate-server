@@ -15,6 +15,7 @@ class ShopItem < ActiveRecord::Base
       notification.data = {
           :registration_ids => recipient_ids,
           :data => {
+            :msg_type => "new_shop_item",
             :item => self.name,
             :user_want_id => self.user_want_id,
             :user_bought_id => self.user_bought_id,
