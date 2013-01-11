@@ -87,7 +87,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(params[:user])
 
-    if(params[:gcm][:registration_id])
+    if params[:gcm] and params[:gcm][:registration_id]
       @device = Gcm::Device.new(:registration_id => params[:gcm][:registration_id])
       @device.user_id =  @user.id
       @device.last_registered_at = Time.now
@@ -111,7 +111,7 @@ class UsersController < ApplicationController
     respond_to do |format|
       if @user.update_attributes(params[:user])
         # Create a Device if the user doesn't have one
-        if params[:gcm][:registration_id]
+        if params[:gcm] and params[:gcm][:registration_id]
           if @user.gcm_device.nil?
             @device = Gcm::Device.new
             @device.user_id = params[:id]
