@@ -55,7 +55,7 @@ class FlatsController < ApplicationController
     
     # Approve yourself when you create a flat!
     @result = @flat.save
-    if user_logged_in
+    if user_signed_in?
       current_user.flat_approved = true
       current_user.flat_id = @result.id
       current_user.save
