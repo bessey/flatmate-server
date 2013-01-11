@@ -57,7 +57,7 @@ class FlatsController < ApplicationController
     @result = @flat.save
     if user_signed_in?
       current_user.flat_approved = true
-      current_user.flat_id = @result.id
+      current_user.flat_id = @flat.id
       current_user.save
     end
 
