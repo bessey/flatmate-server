@@ -95,16 +95,15 @@ class UsersController < ApplicationController
       @ret = @device.save
     end
 
-      if @user.save and @ret
-        respond_to do |format|
-          format.html { redirect_to @user, notice: 'User was successfully created.' }
-          format.json { render json: @user, status: :created, location: @user }
-        end
-      else
-        respond_to do |format|
-          format.html { render action: "new" }
-          format.json { render json: [@user.errors], status: :unprocessable_entity }
-        end
+    if @user.save and @ret
+      respond_to do |format|
+        format.html { redirect_to @user, notice: 'User was successfully created.' }
+        format.json { render json: @user, status: :created, location: @user }
+      end
+    else
+      respond_to do |format|
+        format.html { render action: "new" }
+        format.json { render json: [@user.errors], status: :unprocessable_entity }
       end
     end
   end
@@ -113,37 +112,36 @@ class UsersController < ApplicationController
   # PUT /users/1.json
   def update
 
-      if @user.update_attributes(params[:user])
-        # Create a Device if the user doesn't have one
-        if params[:gcm] and params[:gcm][:registration_id]
-          if @user.gcm_device.nil?
-            @device = Gcm::Device.new
-            @device.user_id = params[:id]
-          else
-            @device = @user.gcm_device
-          end
-
-          @device.last_registered_at = Time.now
-
-          if @device.update_attributes(params[:gcm])
-            respond_to do |format|
-              format.html { redirect_to @user, notice: 'User and GcmDevice were successfully updated.' }
-              format.json { head :no_content }
-            end
-            return
-          else
-            respond_to do |format|
-              format.html { render action: "edit" }
-              format.json { render json: @device.errors, status: :unprocessable_entity }
-            end
-            return
-          end
+    if @user.update_attributes(params[:user])
+      # Create a Device if the user doesn't have one
+      if params[:gcm] and params[:gcm][:registration_id]
+        if @user.gcm_device.nil?
+          @device = Gcm::Device.new
+          @device.user_id = params[:id]
+        else
+          @device = @user.gcm_device
         end
-      else
-        respond_to do |format|
-          format.html { render action: "edit" }
-          format.json { render json: @user.errors, status: :unprocessable_entity }
+
+        @device.last_registered_at = Time.now
+
+        if @device.update_attributes(params[:gcm])
+          respond_to do |format|
+            format.html { redirect_to @user, notice: 'User and GcmDevice were successfully updated.' }
+            format.json { head :no_content }
+          end
+          return
+        else
+          respond_to do |format|
+            format.html { render action: "edit" }
+            format.json { render json: @device.errors, status: :unprocessable_entity }
+          end
+          return
         end
+      end
+    else
+      respond_to do |format|
+        format.html { render action: "edit" }
+        format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
   end
