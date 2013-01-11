@@ -17,9 +17,7 @@ class Flat < ActiveRecord::Base
       notification = sender.gcm_device.notifications.build()
       notification.data = {
           :registration_ids => recipient_ids,
-          :data => {
-            data
-          }
+          :data => data
         }
       notification.collapse_key = collapse_key
       notification.save
