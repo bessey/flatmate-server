@@ -137,7 +137,14 @@ class UsersController < ApplicationController
           end
           return
         end
+
       end
+
+      respond_to do |format|
+        format.html { redirect_to @user }
+        format.json { render json: @user }
+      end
+      
     else
       respond_to do |format|
         format.html { render action: "edit" }
