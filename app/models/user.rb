@@ -22,7 +22,7 @@ class User < ActiveRecord::Base
   default_scope order(:first_name)
 
   def defaults
-    if self.flat_approved.nil? or self.flat_id_changed?
+    if self.flat_approved.nil? or (self.flat_id_was != nil and self.flat_id_changed?)
       self.flat_approved = false
     end
 
